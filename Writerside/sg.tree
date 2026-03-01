@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="sg"
+                 name="SQL Guide"
+                 start-page="starter-topic.md">
+
+    <toc-element topic="starter-topic.md"/>
+    <toc-element topic="ReadMe.md"/>
+    <toc-element topic="Basic-DB-knowledge.md"/>
+    <toc-element topic="Select-Queries.md"/>
+    <toc-element topic="Joins.md"/>
+    <toc-element topic="Order-by.md"/>
+    <toc-element topic="Group-by.md"/>
+    <toc-element topic="Aggregate-functions.md"/>
+    <toc-element topic="Case.md"/>
+    <toc-element topic="Update.md"/>
+</instance-profile>
