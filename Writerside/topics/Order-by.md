@@ -97,10 +97,3 @@ this now returns:
 | 202423    | 342421 | 14.11  | 02/03/2025 | Credit Card   |
 
 NOTE: If you're doing a join with an order by, JOINs will happen before the records are ordered
-
-
-
-
-
-
-
