@@ -1,5 +1,7 @@
 ﻿# Updates
 
+This page is currently in progress, come back later!
+
 https://leetcode.com/problems/swap-sex-of-employees/description/ 
 Update Salary
 Set sex =

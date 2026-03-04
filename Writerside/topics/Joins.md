@@ -56,6 +56,7 @@ JOIN Users u on d.userid = u.userid
 where u.DateJoined > DATEADD(day, -1, GETDATE()) </code-block>
 
 Practice Tasks:
+
 [Combine Two Tables](https://leetcode.com/problems/combine-two-tables/description/)
 <chapter title="Answer" collapsible="true">
     <code-block lang="sql"> select p.firstName, p.lastName, a.city, a.state 
@@ -91,6 +92,7 @@ If no match is found, any column from Table B being returned will show the value
 ![left outer join.png](left outer join.png) 
 
 Practice Tasks:
+
 [Replace Employee ID with the unique Identifier](https://leetcode.com/problems/employee-bonus/description/)
 <chapter title="Answer" collapsible="true">
     <code-block lang="sql"> SELECT e.name, b.Bonus from Employee as e
@@ -120,6 +122,20 @@ left join EmployeeUNI as uni on e.id = uni.id </code-block>
 | from Employees as e                           | FROM statement for our first table as well as the new identifier                                            | 
 | left join EmployeeUNI as uni on e.id = uni.id | we are using left join here because we want all employees to be returned even if they don't have a uniqueid |
 </chapter> 
+
+[Customers Who Never Order](https://leetcode.com/problems/customers-who-never-order/)
+<chapter title="Answer" collapsible="true">
+    <code-block lang="sql"> select name as Customers from Customers as c
+left join Orders as o on c.id = o.customerId
+where o.id is null </code-block>
+    Explanation:  
+
+| SQL                                                | What it does                                                                                                                                                              | 
+|----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
+| select name as Customers from Customers as c       | Specifies that we only want the name returning and renaming it to the column name needed as Output                                                                        | 
+| left join Orders as o on c.id = o.customerId       | the id in the customers table matches the customerId in orders, so we can join on that                                                                                    | 
+| where o.id is null                                 | because we used a left join, we know that customer will always be returned, so if id is null, no matching record was found in Orders, so the user has never made an Order |
+</chapter> 
  
 ## RIGHT JOIN 
 Also known as RIGHT OUTER JOIN. This type of join will return ALL records from Table B and records from Table A if a match is found.
@@ -131,12 +147,58 @@ Also known as FULL OUTER JOIN. This type of join returns all the records from Ta
 Where a match is found then it will combine the two reords, where its not the values from the unmatched table will be shown 
 as NULL.
 ![full join.png](full join.png)
- 
+
+Practice Tasks:
+
+[Employees With Missing Information](https://leetcode.com/problems/employees-with-missing-information)
+<chapter title="Answer" collapsible="true">
+    <code-block lang="sql"> select 
+    case when e.employee_id is null then 
+        s.employee_id else e.employee_id 
+        end as employee_id
+from Employees as e
+full join Salaries as s 
+on e.employee_id = s.employee_id 
+where s.salary is null 
+or e.name is null
+order by employee_id </code-block>
+    Explanation:  
+
+| SQL                                                                                                                    | What it does                                                                                                                                                                                                                                                                                                                   | 
+|------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
+| select  case when e.employee_id is null then  s.employee_id else e.employee_id  end as employee_id from Employees as e | This is my least favorite thing about TSQL, because you need to specify which column data comes from even though the two columns WILL be equal in a join you still have to specify one. In this case, because employee_id might be null in either table we need to use a case so if its null in one, then we returrn the other | 
+| full join Salaries as s on e.employee_id = s.employee_id                                                               | Because we are looking for missing data, we need a FULL JOIN to return both sides                                                                                                                                                                                                                                              |
+| where s.salary is null or e.name is null                                                                               | Here we are checking if one of these columns is null, if it is, then we know the user is missing data in one of the tables and needs to be returned                                                                                                                                                                            
+| order by employee_id                                                                                                   | to avoid the same issue we had in the case, we can use the return from the case to order our records instead                                                                                                                                                                                                                   |
+</chapter> 
+
+https://leetcode.com/problems/employees-with-missing-information/submissions/1935066400/
+full warning, this one is a pain and you will need to order by the result of your return columns 
+rather than one of the employee_id fields 
+
+## Joining a table to itself
+You can join a table to itself! This can be useful when you have data in the table which can be matched to other data in the same
+table. This is probably easier to understand by example so looking at: [Employees Earning More Than Their Managers](https://leetcode.com/problems/employees-earning-more-than-their-managers/)
+
+With this question you can join the employee's and managers record into one record so you can directly compare their salaries
+
+<chapter title="Answer" collapsible="true">
+    <code-block lang="sql"> select e1.name as Employee from Employee as e1
+join Employee as e2 on e2.id = e1.managerId
+where e1.salary > e2.salary  </code-block>
+    Explanation:  
+
+| SQL                                            | What it does                                                                                                                                                                                                      | 
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
+| select e1.name as Employee from Employee as e1 | When joining the same table to itself, you need to create a unique idenitier for both otherwise it will not be able to work out what the value it needs to get it, as the columns will be the same in both tables | 
+| join Employee as e2 on e2.id = e1.managerId    | If a user has a manager if then that manager will also be stored in the employee table, so we can link their records                                                                                              |
+| where e1.salary > e2.salary                    | Here we can compare the employees salary (e1) to their manager (e2) and if its higher, return it                                                              
+ </chapter> 
 
 
 
 
 
-
-
-
+joins
+https://leetcode.com/problems/employees-earning-more-than-their-managers/
+https://leetcode.com/problems/customers-who-never-order/

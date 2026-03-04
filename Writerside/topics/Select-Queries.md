@@ -156,6 +156,20 @@ from Samples </code-block>
 | case when dna_sequence like '%GGG%' then 1 else 0 end as has_ggg                                         | condition to satify Sequences that have at least 3 consecutive G (like GGG or GGGG)                                                                                                                |
 </chapter>
 
+[Patients With a Condition](https://leetcode.com/problems/patients-with-a-condition/)
+<chapter title="Answer" collapsible="true">
+    <code-block lang="sql"> select * from Patients 
+where conditions like 'DIAB1%'
+OR conditions like '% DIAB1%' </code-block>
+    Explanation:  
+
+We know that if a patient has diabetes type 1 then it will start with DIAB1 in the conditions list.
+```conditions like 'DIAB1%'``` is to account for the patients condition list starting with DIAB1
+```OR conditions like '% DIAB1%'``` accounts for the fact that the conditions list might not have started with DIAB1
+but we know that the condition MUST start with DIAB1 for diabetes, if their condition is not first therefore it must have
+a space before it if its at the start of the condition name
+</chapter>
+
 ### Where less or more then 
 When dealing with numbers in sql you can use standard numerical operators to compare values. 
 
@@ -171,6 +185,20 @@ WHERE LEN(content) > 15  </code-block>
 |-----------------------------|------------------------------------------------------------------------------------------------| 
 | SELECT tweet_id FROM Tweets  | specifies that we only want tweet_id returning                                                 | 
 | WHERE LEN(content) > 15     | LEN() lets us found how many charracters are in text, if a tweet has more than 15 its invalid. |  
+</chapter>
+
+[Big Countries](https://leetcode.com/problems/big-countries/description/)
+<chapter title="Answer" collapsible="true">
+    <code-block lang="sql"> select name, population, area from World
+where area >= 3000000
+or population >= 25000000  </code-block>
+    Explanation:  
+
+| SQL                                      | What it does                                                                     | 
+|------------------------------------------|----------------------------------------------------------------------------------| 
+| select name, population, area from World | specifies which fields we want returning in the output                           | 
+| where area >= 3000000                    | satisfys 'it has an area of at least three million (i.e., 3000000 km2)'          |  
+| or population >= 25000000                | satisfys 'it has a population of at least twenty-five million (i.e., 25000000).' |
 </chapter>
 
 ## Value in list
@@ -258,4 +286,4 @@ having count(*) < 2)  </code-block>
 | * (Wildcard)  | Is used to select all rows from the table which fit your conditions                                                                                                                                                                                                                                                                     | <code-block lang="sql"> SELECT * FROM Users;</code-block>                           |
 | TOP           | Is used to select how many rows you want returning from the query at maximum                                                                                                                                                                                                                                                            | <code-block lang="sql"> SELECT TOP 1 * FROM Users;</code-block>                     |
 | WITH (NOLOCK) | When doing queries, it is standard that the database table is locked until the query is finished, so no other operations can be run on it at the same time. For SELECT statements you can specify that you don't want the table to be locked, which will allow others to access or edit the table at the same time the table is running | <code-block lang="sql">SELECT * FROM Users WITH (NOLOCK) </code-block>              |
-| % (LIKE)      | Used to specify where data can change after/before this point but still be a valid return                                                                                                                                                                                                                                               | <code-block lang="sql"> SELECT * FROM Users WHERE FirstName LIKE 'J%' </code-block> |                                                                                                                                                                                                                                                                                                                                         | 
+| % (LIKE)      | Used to specify where data can change after/before this point but still be a valid return                                                                                                                                                                                                                                               | <code-block lang="sql"> SELECT * FROM Users WHERE FirstName LIKE 'J%' </code-block> |                                                                                                                                                                                                                                                                                                                                         

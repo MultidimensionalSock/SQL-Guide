@@ -13,7 +13,9 @@
     <toc-element topic="Joins.md"/>
     <toc-element topic="Order-by.md"/>
     <toc-element topic="Group-by.md"/>
+    <toc-element topic="Delete.md"/>
     <toc-element topic="Aggregate-functions.md"/>
+    <toc-element topic="Windows-functions.md"/>
     <toc-element topic="Case.md"/>
     <toc-element topic="Update.md"/>
 </instance-profile>
